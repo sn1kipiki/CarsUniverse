@@ -37,32 +37,57 @@ class CarController {
       next(ApiError.badRequest(e.message));
     }
   }
-  async getAll(req, res, limit, page) {
-    let { carId, typeId } = req.query;
+  // async getAll(req, res) {
+  //   let { brandId, typeId, limit, page } = req.query;
+  //   page = page || 1;
+  //   limit = limit || 9;
+  //   let offset = page * limit - limit;
+  //   let cars;
+  //   if (!brandId && !typeId) {
+  //     cars = await Car.findAndCountAll({ limit, offset });
+  //   }
+  //   if (brandId && !typeId) {
+  //     cars = await Car.findAndCountAll({
+  //       where: { brandId },
+  //       limit,
+  //       offset,
+  //     });
+  //   }
+  //   if (!brandId && !typeId) {
+  //     cars = await Car.findAndCountAll({
+  //       where: { typeId },
+  //       limit,
+  //       offset,
+  //     });
+  //   }
+  //   if (brandId && typeId) {
+  //     cars = await Car.findAndCountAll({
+  //       where: { brandId, typeId },
+  //       limit,
+  //       offset,
+  //     });
+  //   }
+  //   return res.json(cars);
+  // }
+
+  async getAll(req, res) {
+    let { typeId, brandId, limit, page } = req.query;
     page = page || 1;
     limit = limit || 9;
     let offset = page * limit - limit;
     let cars;
-    if (!carId && !typeId) {
+    if (!brandId && !typeId) {
       cars = await Car.findAndCountAll({ limit, offset });
     }
-    if (carId && !typeId) {
-      cars = await Car.findAndCountAll({
-        where: { carId },
-        limit,
-        offset,
-      });
+    if (brandId && !typeId) {
+      cars = await Car.findAndCountAll({ where: { brandId }, limit, offset });
     }
-    if (!carId && !typeId) {
-      cars = await Car.findAndCountAll({
-        where: { typeId },
-        limit,
-        offset,
-      });
+    if (!brandId && typeId) {
+      cars = await Car.findAndCountAll({ where: { typeId }, limit, offset });
     }
-    if (carId && typeId) {
+    if (brandId && typeId) {
       cars = await Car.findAndCountAll({
-        where: { carId, typeId },
+        where: { brandId, typeId },
         limit,
         offset,
       });

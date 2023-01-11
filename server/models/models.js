@@ -13,10 +13,6 @@ const OrderCar = sequelize.define("order_car", {
   id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
 });
 
-// const BasketDevise = sequelize.define("basket_devise", {
-//   id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
-// });
-
 const Car = sequelize.define("car", {
   id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
   name: { type: DataTypes.STRING, unique: true, allowNull: false },
@@ -37,11 +33,6 @@ const Brand = sequelize.define("brand", {
   name: { type: DataTypes.STRING, unique: true, allowNull: false },
 });
 
-// const Rating = sequelize.define("rating", {
-//   id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
-//   rate: { type: DataTypes.INTEGER, allowNull: false },
-// });
-
 const CarInfo = sequelize.define("car_info", {
   id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
   title: { type: DataTypes.STRING, allowNull: false },
@@ -55,23 +46,11 @@ const TypeBrand = sequelize.define("type_brand", {
 User.hasOne(OrderCar);
 OrderCar.belongsTo(User);
 
-// User.hasMany(Rating);
-// Rating.belongsTo(User);
-
-// Basket.hasMany(BasketDevise);
-// BasketDevise.belongsTo(Basket);
-
 Type.hasMany(Car);
 Car.belongsTo(Type);
 
 Brand.hasMany(Car);
 Car.belongsTo(Brand);
-
-// Device.hasMany(Rating);
-// Rating.belongsTo(Device);
-
-// Device.hasMany(BasketDevise);
-// BasketDevise.belongsTo(Device);
 
 Car.hasMany(CarInfo, { as: "info" });
 CarInfo.belongsTo(Car);
@@ -82,11 +61,9 @@ Brand.belongsToMany(Type, { through: TypeBrand });
 module.exports = {
   User,
   OrderCar,
-  // BasketDevise,
   Car,
   Type,
   Brand,
-  // Rating,
   TypeBrand,
   CarInfo,
 };
